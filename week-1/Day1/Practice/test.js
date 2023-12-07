@@ -1,35 +1,59 @@
-class Calculator {
-	constructor(result) {
-		this.result = result;
+/*
+  Implement a class `Todo` having below methods
+    - add(todo): adds todo to list of todos
+    - remove(indexOfTodo): remove todo from list of todos
+    - update(index, updatedTodo): update todo at given index
+    - getAll: returns all todos
+    - get(indexOfTodo): returns todo at given index
+    - clear: deletes all todos
+
+  Once you've implemented the logic, test your code by running
+*/
+// import "mathjs";
+class Todo {
+	constructor() {
+		this.todoList = [];
 	}
 
-	add(num) {
-		this.result = this.result + num;
+	add(todo) {
+		this.todoList.push(todo);
 	}
 
-	subtract(num) {
-		this.result = this.result - num;
+	remove(indexOfTodo) {
+		this.todoList.splice(indexOfTodo, 1);
+		// delete this.todoList[indexOfTodo];
 	}
 
-	multiply(num) {
-		this.result = this.result * num;
+	update(index, updatedTodo) {
+		if (index >= this.todoList.length) return;
+		this.todoList[index] = updatedTodo;
 	}
 
-	divide(num) {
-		this.result = this.result / num;
+	getAll() {
+		return this.todoList;
+	}
+
+	get(indexOfTodo) {
+		if (this.todoList[indexOfTodo] === undefined) return null;
+		return this.todoList[indexOfTodo];
 	}
 
 	clear() {
-		this.result = 0;
-	}
-
-	getResult() {
-		return this.result;
+		this.todoList = [];
 	}
 }
 
-const cal = new Calculator(0);
-cal.add(3);
-console.log(cal.getResult());
-cal.divide(2);
-console.log(cal.getResult());
+const todo = new Todo();
+todo.add("Task1");
+todo.add("Task2");
+todo.add("Task3");
+
+todo.update(1, "Updated task2");
+console.log(todo.getAll());
+todo.update(3, "Invalid task");
+console.log(todo.getAll());
+// console.log(todo.get(0));
+// console.log(todo.get(2));
+// console.log(todo.get(3));
+const expr = "2 + 3 * 4 / 0";
+console.log(eval(expr));
