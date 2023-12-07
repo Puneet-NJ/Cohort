@@ -17,8 +17,8 @@
 */
 
 class Calculator {
-	constructor(result) {
-		this.result = result;
+	constructor() {
+		this.result = 0;
 	}
 
 	add(num) {
@@ -34,6 +34,7 @@ class Calculator {
 	}
 
 	divide(num) {
+		if (num === 0) throw new Error("Divide by 0");
 		this.result = this.result / num;
 	}
 
@@ -43,6 +44,12 @@ class Calculator {
 
 	getResult() {
 		return this.result;
+	}
+
+	calculate(expression) {
+		let evaluatedSolution = eval(expression);
+		if (evaluatedSolution === Infinity) throw new Error("Divide by 0");
+		this.result = evaluatedSolution;
 	}
 }
 
