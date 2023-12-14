@@ -1,0 +1,25 @@
+--START--
+
+The fs.readFile() method is an inbuilt method which is used to read the file. 
+This method read the entire file into buffer. 
+To load the fs module we use require() method. 
+For example: var fs = require(‘fs’);
+ 
+
+Syntax:  
+
+fs.readFile( filename, encoding, callback_function )
+Parameters: The method accept three parameters as mentioned above and described below:  
+
+filename: It holds the name of the file to read or the entire path if 
+stored at other location.
+
+encoding: It holds the encoding of file. Its default value is ‘utf8’.
+callback_function: It is a callback function that is called after reading of file. 
+It takes two parameters:
+err: If any error occurred.
+data: Contents of the file.
+Return Value: It returns the contents/data stored in file or error if any.
+
+
+--END--
