@@ -16,40 +16,80 @@
   Once you've implemented the logic, test your code by running
 */
 
+// class Calculator {
+// 	constructor() {
+// 		this.result = 0;
+// 	}
+
+// 	add(num) {
+// 		this.result = this.result + num;
+// 	}
+
+// 	subtract(num) {
+// 		this.result = this.result - num;
+// 	}
+
+// 	multiply(num) {
+// 		this.result = this.result * num;
+// 	}
+
+// 	divide(num) {
+// 		if (num === 0) throw new Error("Divide by 0");
+// 		this.result = this.result / num;
+// 	}
+
+// 	clear() {
+// 		this.result = 0;
+// 	}
+
+// 	getResult() {
+// 		return this.result;
+// 	}
+
+// 	calculate(expression) {
+// 		let evaluatedSolution = eval(expression);
+// 		if (evaluatedSolution === Infinity) throw new Error("Divide by 0");
+// 		this.result = evaluatedSolution;
+// 	}
+// }
+
 class Calculator {
 	constructor() {
 		this.result = 0;
 	}
 
 	add(num) {
-		this.result = this.result + num;
+		this.result += num;
 	}
-
 	subtract(num) {
-		this.result = this.result - num;
+		this.result -= num;
 	}
-
 	multiply(num) {
-		this.result = this.result * num;
+		this.result *= num;
 	}
-
 	divide(num) {
-		if (num === 0) throw new Error("Divide by 0");
-		this.result = this.result / num;
+		if (num === 0) throw new Error(e);
+		this.result /= num;
 	}
 
 	clear() {
 		this.result = 0;
 	}
-
 	getResult() {
 		return this.result;
 	}
 
-	calculate(expression) {
-		let evaluatedSolution = eval(expression);
-		if (evaluatedSolution === Infinity) throw new Error("Divide by 0");
-		this.result = evaluatedSolution;
+	calculate(expr) {
+		let evalExpression;
+		try {
+			evalExpression = eval(expr);
+		} catch (e) {
+			throw new Error(e);
+		}
+
+		if (evalExpression === Infinity) throw new Error(e);
+
+		this.result = evalExpression;
 	}
 }
 

@@ -18,7 +18,19 @@ function calculateTime(n) {
 	const endTime = new Date();
 
 	console.log(endTime - startTime);
-	return 0.01;
 }
 
-calculateTime(10000000000);
+function calculateTime2(n) {
+	const time1 = new Date();
+
+	let sum = 0;
+	for (let i = 0; i < n; i++) {
+		sum += i;
+	}
+
+	const time2 = new Date();
+
+	console.log(time2 - time1);
+}
+
+calculateTime2(100000000);

@@ -5,21 +5,36 @@
   Once you've implemented the logic, test your code by running
 */
 
+// function countVowels(str) {
+// 	str = str.toLowerCase();
+
+// 	let count = 0;
+
+// 	for (let charecter of str) {
+// 		if (
+// 			charecter === "a" ||
+// 			charecter === "e" ||
+// 			charecter === "i" ||
+// 			charecter === "o" ||
+// 			charecter === "u"
+// 		) {
+// 			count++;
+// 		}
+// 	}
+
+// 	return count;
+// }
+
 function countVowels(str) {
 	str = str.toLowerCase();
-
 	let count = 0;
 
-	for (let charecter of str) {
-		if (
-			charecter === "a" ||
-			charecter === "e" ||
-			charecter === "i" ||
-			charecter === "o" ||
-			charecter === "u"
-		) {
-			count++;
-		}
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] === "a") count++;
+		else if (str[i] === "e") count++;
+		else if (str[i] === "i") count++;
+		else if (str[i] === "o") count++;
+		else if (str[i] === "u") count++;
 	}
 
 	return count;
