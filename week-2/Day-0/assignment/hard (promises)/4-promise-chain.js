@@ -6,32 +6,52 @@
  */
 
 function wait1(t) {
-	return new Promise((resolve) => setTimeout(resolve(t * 1000), t * 1000));
+	const promise = new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(t * 1000);
+		}, t * 1000);
+	});
+
+	return promise;
 }
 
 function wait2(t) {
-	return new Promise((resolve) => setTimeout(resolve(t * 1000), t * 1000));
+	const promise = new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(t * 1000);
+		}, t * 1000);
+	});
+
+	return promise;
 }
 
 function wait3(t) {
-	return new Promise((resolve) => setTimeout(resolve(t * 1000), t * 1000));
+	const promise = new Promise((resolve) => {
+		setTimeout(() => {
+			resolve(t * 1000);
+		}, t * 1000);
+	});
+
+	return promise;
 }
 
 function calculateTime(t1, t2, t3) {
-	let timeTotal = 0;
-	return wait1(t1)
-		.then((time) => {
-			timeTotal += time;
+	let totalTime = 0;
+
+	const promiseChain = wait1(t1)
+		.then((time1) => {
+			totalTime += time1;
 			return wait2(t2);
 		})
-		.then((time) => {
-			timeTotal += time;
+		.then((time2) => {
+			totalTime += time2;
 			return wait3(t3);
 		})
-		.then((time) => {
-			timeTotal += time;
-			return timeTotal;
+		.then((time3) => {
+			return (totalTime += time3);
 		});
+
+	return promiseChain;
 }
 
 module.exports = calculateTime;
