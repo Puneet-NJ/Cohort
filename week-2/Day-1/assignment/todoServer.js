@@ -39,98 +39,108 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
+
+const { log } = require("console");
 const express = require("express");
-const bodyParser = require("body-parser");
+const app = express();
 const fs = require("fs");
 
-const app = express();
+app.use(express.json());
 
-app.use(bodyParser.json());
-
-const findTodo = (todos, id) => {
+const searchIndex = (arr, id) => {
 	let todoIndex = -1;
 
-	todos.map((todo, index) => {
-		if (todo.id === id) {
-			todoIndex = index;
-			return;
-		}
-	});
+	const transformFunction = (item, index) => {
+		if (item.id === id) todoIndex = index;
+	};
+	arr.map(transformFunction);
 
 	return todoIndex;
 };
 
 app.get("/todos", (req, res) => {
 	fs.readFile("todos.json", "utf-8", (err, data) => {
-		if (err) res.status(404).send(err);
-		res.status(200).json(JSON.parse(data));
+		data = JSON.parse(data);
+		res.status(200).send(data);
 	});
 });
 
 app.get("/todos/:id", (req, res) => {
-	const id = Number(req.params.id);
-
+	let id = req.params.id;
+	id = parseInt(id);
 	fs.readFile("todos.json", "utf-8", (err, data) => {
 		data = JSON.parse(data);
-		const findTodoIndex = findTodo(data, id);
+		const index = searchIndex(data, id);
 
-		if (findTodoIndex !== -1) res.status(200).json(data[findTodoIndex]);
-		else res.sendStatus(404);
+		if (index === -1) res.sendStatus(404);
+		res.status(200).json(data[index]);
 	});
 });
 
 app.post("/todos", (req, res) => {
-	const todoToAdd = {
+	const title = req.body.title;
+	const completed = req.body.completed;
+	const description = req.body.description;
+
+	const todo = {
+		title: title,
+		completed: completed,
+		description: description,
 		id: Math.floor(Math.random() * 10000),
-		title: req.body.title,
-		description: req.body.description,
 	};
 
-	let todos;
 	fs.readFile("todos.json", "utf-8", (err, data) => {
-		todos = data;
-		todos = JSON.parse(todos);
-		todos.push(todoToAdd);
+		data = JSON.parse(data);
+		data.push(todo);
 
-		fs.writeFile("todos.json", JSON.stringify(todos), (err) => {
-			// console.log(todos);
-			res.status(201).send({ id: todoToAdd.id });
+		fs.writeFile("todos.json", JSON.stringify(data), (err) => {
+			if (err) res.status(500);
+			res.status(201).json({ id: todo.id });
 		});
 	});
 });
 
 app.put("/todos/:id", (req, res) => {
-	const id = Number(req.params.id);
-	fs.readFile("todos.json", "utf-8", (err, data) => {
-		const todos = JSON.parse(data);
-		const todoToBeChanged = findTodo(todos, id);
+	let id = req.params.id;
+	id = parseInt(id);
 
-		if (todoToBeChanged === -1) res.sendStatus(404);
-		else {
-			todos[todoToBeChanged].title = req.body.title;
-			todos[todoToBeChanged].description = req.body.description;
-			fs.writeFile("todos.json", JSON.stringify(todos), (err) => {
-				res.status(200).json(todos[todoToBeChanged]);
-			});
-		}
+	const title = req.body.title;
+	const completed = req.body.completed;
+
+	fs.readFile("todos.json", "utf-8", (err, data) => {
+		if (err) res.sendStatus(500);
+
+		data = JSON.parse(data);
+		const index = searchIndex(data, id);
+
+		if (index === -1) res.sendStatus(404);
+
+		data[index].title = title;
+		data[index].completed = completed;
+
+		fs.writeFile("todos.json", JSON.stringify(data), (err) => {
+			if (err) res.sendStatus(404);
+			else res.sendStatus(200);
+		});
 	});
 });
 
 app.delete("/todos/:id", (req, res) => {
-	const id = Number(req.params.id);
-	fs.readFile("todos.json", "utf-8", (err, data) => {
-		const todos = JSON.parse(data);
-		const todoToDelete = findTodo(todos, id);
+	let id = req.params.id;
+	id = parseInt(id);
 
-		if (todoToDelete === -1) res.sendStatus(404);
-		else {
-			todos.splice(todoToDelete, 1);
-			fs.writeFile("todos.json", JSON.stringify(todos), (err) => {
-				res.sendStatus(200);
-			});
-		}
+	fs.readFile("todos.json", "utf-8", (err, data) => {
+		data = JSON.parse(data);
+		const index = searchIndex(data, id);
+
+		if (index === -1) res.sendStatus(404);
+
+		data.splice(index, 1);
+		fs.writeFile("todos.json", JSON.stringify(data), (err) => {
+			if (err) res.sendStatus(404);
+			else res.sendStatus(200);
+		});
 	});
 });
 
-// app.listen(3000);
 module.exports = app;

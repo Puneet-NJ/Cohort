@@ -59,7 +59,7 @@ const todos = [
 ];
 
 app.get("/todos", (req, res) => {
-	res.status(200).json({ todos });
+	res.status(200).json(todos);
 });
 
 app.get("/todos/:id", (req, res) => {
@@ -108,6 +108,6 @@ app.delete("/todos/:id", (req, res) => {
 	res.status(404).json("No todo with the specific id was found");
 });
 
-app.listen(3000);
+app.listen(3002);
 
 // module.exports = app;
