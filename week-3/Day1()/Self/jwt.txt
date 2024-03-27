@@ -1,0 +1,33 @@
+CHATGPT
+
+Q) Can u pls tell me in short how jwt works in simple language
+
+=>  Certainly! Here's a simplified explanation of how JSON Web Tokens (JWT) work:
+
+
+Creation of JWT:
+
+When a user logs in or performs an action that requires authentication, the server generates a JWT.
+This JWT consists of three parts: a header, a payload, and a signature.
+The header typically contains information about the type of token and the cryptographic algorithm used to sign it.
+The payload contains the claims or information about the user (e.g., user ID, username, expiration time).
+The signature is created by combining the encoded header, encoded payload, and a secret key known only to the server, using a cryptographic algorithm.
+
+
+Issuing the JWT:
+
+Once the JWT is created, the server sends it back to the client as a response to the authentication request.
+The client stores this JWT, usually in local storage or a cookie, and includes it in subsequent requests to the server.
+
+
+Verification of JWT:
+
+When the client makes a request to a protected resource, it includes the JWT in the request.
+The server receives the JWT and verifies its integrity by recalculating the signature using the same algorithm and secret key.
+If the recalculated signature matches the signature in the received JWT, and the token hasn't expired, the server considers the token valid and processes the request.
+If the signature doesn't match or the token has expired, the server rejects the request and may require the client to authenticate again.
+In essence, JWT allows for stateless authentication by securely encoding user information into a token that can be easily transmitted between the client and server. The server can trust the information in the token because it's digitally signed, providing a secure way to authenticate users without the need for session storage on the server.
+
+
+
+
