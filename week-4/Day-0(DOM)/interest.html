@@ -1,0 +1,26 @@
+<html>
+	<body>
+		<input id="p" placeholder="Principle amount" />
+		<input id="r" placeholder="Rate of interest" />
+		<input id="t" placeholder="Time" />
+
+		<button onclick="calculateInterest()">Calculate interest</button>
+
+		<div id="answer"></div>
+	</body>
+
+	<script>
+		const calculateInterest = async () => {
+			const p = document.getElementById("p").value;
+			const r = document.getElementById("r").value;
+			const t = document.getElementById("t").value;
+
+			const response = await fetch(
+				`http://localhost:3003/interest?p=${p}&t=${t}&r=${r}`
+			);
+			const ans = await response.json();
+			document.getElementById("answer").innerHTML =
+				"Total = " + ans.total + " Interest = " + ans.interest;
+		};
+	</script>
+</html>
