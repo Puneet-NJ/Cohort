@@ -20,9 +20,28 @@ const User = mongoose.model("Users", {
 // });
 // user.save();
 
+const user = new User({
+	email: "harpreetsingh@gmail.com",
+	password: "123456",
+	name: "hsingh",
+});
+user.save();
+
 //  Reading
 const getUser = async () => {
-	const requiredUser = await User.findOne({ email: "puneet@gmail.com" });
+	const requiredUser = await User.find({});
 	console.log(requiredUser);
 };
 getUser();
+
+// Updating
+const updateUser = async () => {
+	await User.updateOne({ name: "Puneet" }, { password: "newPassword" });
+};
+updateUser();
+
+// Deleting
+const deleteUser = async () => {
+	await User.deleteMany({ name: "hsingh" });
+};
+deleteUser();
