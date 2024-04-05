@@ -1,0 +1,25 @@
+# useEffect
+What is useEffect?
+=> useEffect lets you get lifecycle methods in functional components. Here we ussually perform side effects like fetching setTimeout & setInterval.
+
+# Dependency array in useEffect?
+=> Tells when to execute the callback function. 
+(i) if empty dependency array -> Runs the callback func only on inital render.
+(ii) if dependency array with a state var -> Runs callback func whenever the value of the state var changes.
+
+# memo
+What is memo?
+=> We see many a times when a parent re-renders a child component re-renders too even though its props have not changed. Hence, we use memo to prevent this.
+
+# useMemo
+What is useMemo?
+=> We see that there certain costly operations that runs many times unnecessarily that ideally should have run only if a cerain state variable has changed in that case we wrap it inside useMemo's callback function. It should return some value and the useMemo can catch it inside a variable. Similar to useEffect it takes 2 inputs callback func & dependency array which takes state variable & the callback memoizes only if the state var in dependency array changes.
+BASICALLY IT MEMOIZES A VALUE COMPUTED BY AN EXPENSIVE FUNTION.
+
+# useCallback
+What is useCallback?
+=> useCallback memoizes a function. 
+We see when a child is passed with function irrespective of memoizing it using memo() it re-renders because in JS func a & b with similar body a==b returns false. Then we can use useCallback to prevent this unnecessary re-rendering.
+
+useMemo vs useCallback
+=> useMemo memoizes value and useCallback memozies function.
