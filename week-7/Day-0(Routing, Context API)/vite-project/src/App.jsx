@@ -14,6 +14,7 @@ function App() {
 }
 
 function Count({ setCount }) {
+	console.log("Count changed");
 	return (
 		<div>
 			<CountRenderer />
