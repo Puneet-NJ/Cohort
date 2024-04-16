@@ -1,0 +1,14 @@
+# Atom?
+=> Smallest to hold the stat.e
+
+# Selector?
+=> To have derived state.
+
+# Async data queries?
+=> To have async values in your atoms i.e. atoms cannot be async but selectors could be so.
+
+# atomFamily?
+=> It is a group of atoms. It takes a condition and returns an atom based on it.
+
+# selectorFamily?
+=> To have atoms of atomFamily dynamic values we use selectorFamily.
