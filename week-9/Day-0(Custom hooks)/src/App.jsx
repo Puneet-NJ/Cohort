@@ -45,17 +45,67 @@ function useIsOnine() {
 }
 
 const useInterval = (callback, time) => {
-	setInterval(callback, time);
+	useEffect(() => {
+		const intervalId = setInterval(callback, time);
+
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, [callback, time]);
 };
 
 function App() {
-	const [count, setCount] = useState(0);
+	const [inputValue, setInputValue] = useState("");
+	const debouncedValue = useDebounce2(inputValue, 1000); // 500 milliseconds debounce delay
 
-	useInterval(() => {
-		setCount((c) => c + 1);
-	}, 1000);
+	// Use the debouncedValue in your component logic, e.g., trigger a search API call via a useEffect
 
-	return <>Timer is at {count}</>;
+	console.log(debouncedValue);
+	return (
+		<>
+			<input
+				type="text"
+				value={inputValue}
+				onChange={(e) => setInputValue(e.target.value)}
+				placeholder="Search..."
+			/>
+			<div>{debouncedValue}</div>
+		</>
+	);
+}
+
+function useDebounce2(value, time) {
+	const [debounce, setDebounce] = useState("");
+
+	useEffect(() => {
+		let timeoutId = setTimeout(() => {
+			setDebounce(value);
+		}, time);
+
+		return () => {
+			clearTimeout(timeoutId);
+		};
+	}, [value, time]);
+
+	return debounce;
+}
+
+let timeoutId;
+function useDebounce(value, time) {
+	clearTimeout(timeoutId);
+	const [debounce, setDebounce] = useState("");
+
+	useEffect(() => {
+		timeoutId = setTimeout(() => {
+			setDebounce(value);
+		}, time);
+
+		return () => {
+			clearTimeout(timeoutId);
+		};
+	}, [value, time]);
+
+	return debounce;
 }
 
 // function App() {
@@ -70,6 +120,28 @@ function App() {
 // 		</>
 // 	);
 // }
+
+function Debounce() {
+	const [debounceText, setDebounceText] = useState(false);
+	let intervalId;
+
+	return (
+		<div>
+			<input
+				placeholder="enter product"
+				onChange={() => {
+					setDebounceText(false);
+					clearInterval(intervalId);
+
+					intervalId = setTimeout(() => {
+						setDebounceText(true);
+					}, 3000);
+				}}
+			/>
+			<div>{debounceText && <span>Hi there </span>}</div>
+		</div>
+	);
+}
 
 function Track({ todo }) {
 	return (
