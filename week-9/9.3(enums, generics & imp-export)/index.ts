@@ -1,20 +1,20 @@
 // enums
 // These are the way to hold constants
 
-enum Keys {
-	Up = "Hi",
-	Down = "Hi2",
-	Left = "Hi3",
-	Right = "Hi4",
-}
+// enum Keys {
+// 	Up = "Hi",
+// 	Down = "Hi2",
+// 	Left = "Hi3",
+// 	Right = "Hi4",
+// }
 
-const doSomething = (key: Keys): Keys => {
-	console.log(Keys);
+// const doSomething = (key: Keys): Keys => {
+// 	console.log(Keys);
 
-	return key;
-};
+// 	return key;
+// };
 
-console.log(doSomething(Keys.Up));
+// console.log(doSomething(Keys.Up));
 
 // Common UseCase:
 // enum ResponseCodes {
@@ -29,3 +29,12 @@ console.log(doSomething(Keys.Up));
 
 // 	res.status(ResponseCodes.invalidInputs).send();
 // });
+
+// GENERICS
+type func = number[] | string[];
+function returnFirstEle<T>(arr: T[]): T {
+	return arr[0];
+}
+
+console.log(returnFirstEle<number>([1, 2, 3]));
+console.log(returnFirstEle<string>(["puneet", "rita"]).toUpperCase());
