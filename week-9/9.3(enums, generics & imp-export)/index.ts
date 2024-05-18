@@ -38,3 +38,10 @@ function returnFirstEle<T>(arr: T[]): T {
 
 console.log(returnFirstEle<number>([1, 2, 3]));
 console.log(returnFirstEle<string>(["puneet", "rita"]).toUpperCase());
+
+type random = {
+	some: string;
+};
+type someThing = {
+	greet1(name: string): random;
+};
