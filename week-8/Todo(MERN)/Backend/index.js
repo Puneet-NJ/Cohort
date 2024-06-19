@@ -1,10 +1,9 @@
 const express = require("express");
-const { route } = require("./routes/user");
+const userRoute = require("./routes/user");
 const app = express();
 
-app.use("/", route);
-// app.get("/", (req, res) => {
-// 	console.log("Hi");
-// });
+app.use(express.json());
+
+app.use("/api/v1/user", userRoute);
 
 app.listen(3000);

@@ -1,8 +1,12 @@
 const express = require("express");
+const { userSignupSchema } = require("../schema");
 const route = express.Router();
+const zod = require("zod");
 
-route.get("/hi", (req, res) => {
-	console.log("Hi from user.js");
+route.post("/signup", (req, res) => {
+	const body = req.body;
+	const check = userSignupSchema.safeParse(body);
+	console.log(check);
 });
 
-module.exports = { route };
+module.exports = route;
