@@ -15,7 +15,7 @@ ii) Give a login functionality
 
     a) Check if input is valid
     b) Check if the username does exists and only then login
-    c) Also verify token (Create middleware for it)
+    c) Also send token
 
 ## CRUD on todo(s)
 
@@ -33,4 +33,9 @@ ii) Read all Todos
     b) Send the todos
 
 iii) Update a Todo i.e. mark as complete or incomplete
+
+    a) Validate token
+    b) Find todos list of the specific user by his userId
+    b) Get id of the todo and search for it in the array and then modify it be complete/incomplete
+
 iv) Delete a Todo
