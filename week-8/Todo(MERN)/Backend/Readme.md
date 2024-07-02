@@ -39,3 +39,7 @@ iii) Update a Todo i.e. mark as complete or incomplete
     b) Get id of the todo and search for it in the array and then modify it be complete/incomplete
 
 iv) Delete a Todo
+
+    a) Validate token
+    b) Find todos list of the specific user by his userId
+    c) Get id of the todo and delete it
