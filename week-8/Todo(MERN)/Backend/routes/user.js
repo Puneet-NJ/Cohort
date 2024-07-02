@@ -28,7 +28,7 @@ router.post("/signup", async (req, res) => {
 	res.json({ token });
 });
 
-router.post("/login", authenticationMW, async (req, res) => {
+router.post("/login", async (req, res) => {
 	const body = req.body;
 	const isValidInput = signinSchema.safeParse(body);
 
@@ -42,7 +42,9 @@ router.post("/login", authenticationMW, async (req, res) => {
 	});
 	if (!userFound) return res.status(404).json({ msg: "User doesn't exist" });
 
-	res.json({ msg: "Login successfull" });
+	const token = jwt.sign({ id: userFound._id }, JWT_PASSWORD);
+
+	res.json({ token, msg: "Login successfull" });
 });
 
 router.post("/addTodo", authenticationMW, async (req, res) => {
@@ -73,6 +75,21 @@ router.get("/getTodos", authenticationMW, async (req, res) => {
 	res.json({ todos });
 });
 
-// router.
+router.put("/updateTodo", authenticationMW, async (req, res) => {
+	const userId = req.id;
+	const todoId = req.query.id;
+	const isCompleted = req.query.completed;
+
+	const userTodos = await Todos.findOne({ userId });
+
+	const todo = userTodos.todos.id(todoId);
+	if (!todo) return res.status(404).send("Todo not found");
+
+	todo.completed = isCompleted;
+
+	await userTodos.save();
+
+	res.json({ msg: "Updated successfully", todo });
+});
 
 module.exports = router;
