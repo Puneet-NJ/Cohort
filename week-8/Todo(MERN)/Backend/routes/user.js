@@ -92,4 +92,23 @@ router.put("/updateTodo", authenticationMW, async (req, res) => {
 	res.json({ msg: "Updated successfully", todo });
 });
 
+router.delete("/deleteTodo", authenticationMW, async (req, res) => {
+	const userId = req.id;
+	const todoId = req.query.id;
+
+	const userTodos = await Todos.findOne({ userId });
+
+	userTodos.todos.map((todo, index) => {
+		if (todo._id.toString() === todoId) {
+			userTodos.todos.splice(index, 1);
+		}
+
+		return true;
+	});
+
+	await userTodos.save();
+
+	res.json({ todos: userTodos.todos, msg: "Todo deleted!!" });
+});
+
 module.exports = router;
