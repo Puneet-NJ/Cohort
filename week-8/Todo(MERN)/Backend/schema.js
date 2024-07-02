@@ -11,4 +11,10 @@ const signinSchema = zod.object({
 	password: zod.string().min(3),
 });
 
-module.exports = { singupSchema, signinSchema };
+const todoSchema = zod.object({
+	title: zod.string(),
+	description: zod.string(),
+	completed: zod.boolean(),
+});
+
+module.exports = { singupSchema, signinSchema, todoSchema };
