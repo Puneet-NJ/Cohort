@@ -28,5 +28,9 @@ i) Create a Todo
     c) Push the input todo to todos
 
 ii) Read all Todos
+
+    a) Get userId from token and find the same in Todos tabel in db
+    b) Send the todos
+
 iii) Update a Todo i.e. mark as complete or incomplete
 iv) Delete a Todo
