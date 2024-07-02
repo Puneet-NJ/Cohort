@@ -65,4 +65,14 @@ router.post("/addTodo", authenticationMW, async (req, res) => {
 	res.json({ msg: "Todo added!!" });
 });
 
+router.get("/getTodos", authenticationMW, async (req, res) => {
+	const userId = req.id;
+
+	const { todos } = await Todos.findOne({ userId });
+
+	res.json({ todos });
+});
+
+// router.
+
 module.exports = router;
