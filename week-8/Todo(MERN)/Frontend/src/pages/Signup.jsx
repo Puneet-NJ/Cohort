@@ -5,11 +5,13 @@ import Heading from "../components/Heading";
 import InputBox from "../components/InputBox";
 import SubHeading from "../components/SubHeading";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
 	return (
 		<div className="h-screen flex justify-center items-center bg-gray-500">
@@ -35,17 +37,21 @@ const Signup = () => {
 
 				<Button
 					onClickParent={async () => {
-						const response = await axios({
-							method: "POST",
-							url: "http://localhost:3000/api/v1/signup",
-							data: {
-								name,
-								username: email,
-								password,
-							},
-						});
+						try {
+							const response = await axios({
+								method: "POST",
+								url: "http://localhost:3000/api/v1/signup",
+								data: {
+									name,
+									username: email,
+									password,
+								},
+							});
 
-						localStorage.setItem("token", response.data.token);
+							localStorage.setItem("token", response.data.token);
+
+							navigate("/todo");
+						} catch (err) {}
 					}}
 					label={"Signup"}
 				/>
