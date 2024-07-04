@@ -72,6 +72,7 @@ const Todos = () => {
 						description={todo.description}
 						completed={todo.completed}
 						id={todo._id}
+						setParentRender={setRender}
 					/>
 				))}
 			</div>
