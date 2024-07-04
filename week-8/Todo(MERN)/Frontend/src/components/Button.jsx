@@ -2,10 +2,10 @@ import React from "react";
 
 const Button = ({ label, onClickParent }) => {
 	return (
-		<div className="pt-7">
+		<div className="pt-7 ">
 			<button
 				onClick={onClickParent}
-				className="w-full bg-slate-300 text-black py-2 rounded hover:bg-slate-600 hover:text-white duration-150"
+				className="w-full bg-slate-300 bg-white text-black py-2 rounded hover:bg-green-500 hover:text-white duration-150"
 			>
 				{label}
 			</button>
