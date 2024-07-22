@@ -1,23 +1,14 @@
 "use strict";
-// problem 1
-function greetUser(firstName) {
-    console.log(`Hello ${firstName}`);
-}
-greetUser("Puneet");
-// problem 2
-const findSum = (a, b) => {
-    return a + b;
+// // problem 1
+// function greetUser(firstName: string) {
+// 	console.log(`Hello ${firstName}`);
+// }
+const take = (ip) => {
+    console.log(ip);
 };
-console.log("The sum is: " + findSum(1, 10));
-// problem 3
-const isLegal = (age) => {
-    return age > 18;
+take(1);
+take("dfs");
+const shout = (animal) => {
+    console.log(animal.speaks);
 };
-console.log(isLegal(2));
-// problem 4
-const runAnotherFunc = (func) => {
-    setTimeout(func, 1000);
-};
-runAnotherFunc(() => {
-    console.log("After 1 sec");
-});
+shout({ name: "Rex", legs: 4, speaks: "Bhow Bhow!!" });
