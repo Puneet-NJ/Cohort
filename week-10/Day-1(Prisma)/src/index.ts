@@ -24,7 +24,7 @@ const insertUser = async (
 	console.log(response);
 };
 
-// insertUser("some@gamil2.com", "pass", "Some", "Guy");
+insertUser("some@gamil222.com", "pass", "Some", "Guy");
 
 interface updateUserSchema {
 	firstName: string;
@@ -56,4 +56,4 @@ const getUser = async (email: string) => {
 
 	console.log(response);
 };
-getUser("some@gamil2.com");
+// getUser("some@gamil2.com");

@@ -64,7 +64,7 @@ const getUser = async (email: string) => {
 };
 
 // createUsersTable();
-// insertIntoTable("username2", "user3@example.com", "user_password");
+insertIntoTable("username22", "user3@example.com", "user_password");
 // getUser("user3@example.com");
 
 const createAddressTable = async () => {
@@ -117,4 +117,4 @@ const displayAddressesData = async () => {
 
 // createAddressTable();
 // insertIntoAddressTable();
-displayAddressesData();
+// displayAddressesData();

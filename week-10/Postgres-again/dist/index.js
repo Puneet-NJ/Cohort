@@ -64,7 +64,7 @@ const getUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 // createUsersTable();
-// insertIntoTable("username2", "user3@example.com", "user_password");
+insertIntoTable("username22", "user3@example.com", "user_password");
 // getUser("user3@example.com");
 const createAddressTable = () => __awaiter(void 0, void 0, void 0, function* () {
     yield client.connect();
@@ -113,4 +113,4 @@ const displayAddressesData = () => __awaiter(void 0, void 0, void 0, function* (
 });
 // createAddressTable();
 // insertIntoAddressTable();
-displayAddressesData();
+// displayAddressesData();

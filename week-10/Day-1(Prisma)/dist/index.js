@@ -26,6 +26,7 @@ const insertUser = (email, password, firstName, lastName) => __awaiter(void 0, v
     });
     console.log(response);
 });
+insertUser("some@gamil222.com", "pass", "Some", "Guy");
 const updateUser = (email_1, _a) => __awaiter(void 0, [email_1, _a], void 0, function* (email, { firstName, lastName }) {
     const response = yield prisma.users.update({
         where: {
@@ -45,4 +46,4 @@ const getUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
     });
     console.log(response);
 });
-getUser("some@gamil2.com");
+// getUser("some@gamil2.com");
