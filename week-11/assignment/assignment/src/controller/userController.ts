@@ -1,16 +1,8 @@
 import { Context } from "hono";
-import { signupSchema } from "../zod/user";
+import { signinSchema, signupSchema } from "../zod/user";
 import { STATUS_CODES } from "..";
 import { getPrisma } from "../prisma/prismaFunction";
 import { sign } from "hono/jwt";
-/*
-*
- - POST /users/signup - User registration.
-Inputs: username, email, password
-Actions: Create a new user account. Perform validations and return a 
-success message or error messages (e.g., email already in use, 
-password requirements not met).
-*/
 
 export const signup = async (c: Context) => {
 	try {
@@ -58,3 +50,51 @@ export const signup = async (c: Context) => {
 		return c.json({ msg: "Internal Error" }, STATUS_CODES.INTERNAL_ERROR);
 	}
 };
+
+export const signin = async (c: Context) => {
+	try {
+		const prisma = getPrisma(c.env.DATABASE_URL);
+
+		const body = await c.req.json();
+
+		const validateSchema = signinSchema.safeParse(body);
+		if (!validateSchema.success)
+			return c.json({ msg: "Invalid inputs" }, STATUS_CODES.INVALID_INPUTS);
+
+		let userPresent;
+		try {
+			userPresent = await prisma.users.findFirst({
+				where: { username: body.username, password: body.password },
+			});
+
+			if (!userPresent)
+				return c.json(
+					{ msg: "Username and Password doesn't match or not found" },
+					STATUS_CODES.INVALID_INPUTS
+				);
+		} catch (err) {
+			return c.json(
+				{ msg: "Failed to find data from the Database" },
+				STATUS_CODES.INTERNAL_ERROR
+			);
+		}
+
+		const token = await sign({ id: userPresent.id }, c.env.JWT_SECRET);
+
+		return c.json({
+			message: "login successfully",
+			token: token,
+			user: {
+				userId: userPresent.id,
+				username: userPresent.username,
+				email: userPresent.email,
+			},
+		});
+	} catch (err) {
+		return c.json({ msg: "Internal Error" }, STATUS_CODES.INTERNAL_ERROR);
+	}
+};
+
+/**
+ *
+ * */

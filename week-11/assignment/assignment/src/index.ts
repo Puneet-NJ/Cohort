@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { userRoute } from "./routes/userRouter";
+import { blogRoute } from "./routes/blogRouter";
 import { cors } from "hono/cors";
 
 const app = new Hono();
@@ -12,8 +13,6 @@ export enum STATUS_CODES {
 }
 
 app.route("/api/v1/users/", userRoute);
-// app.get("/", (c) => {
-// 	return c.text("Hello Hono!");
-// });
+app.route("/api/v1/", blogRoute);
 
 export default app;
