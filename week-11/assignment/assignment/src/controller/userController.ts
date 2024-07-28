@@ -13,31 +13,48 @@ password requirements not met).
 */
 
 export const signup = async (c: Context) => {
-	const prisma = getPrisma(c.env.DATABASE_URL);
+	try {
+		const prisma = getPrisma(c.env.DATABASE_URL);
 
-	const body = await c.req.json();
+		const body = await c.req.json();
 
-	const validateSchema = signupSchema.safeParse(body);
+		const validateSchema = signupSchema.safeParse(body);
+		if (!validateSchema.success)
+			return c.json({ msg: "Invalid inputs" }, STATUS_CODES.INVALID_INPUTS);
 
-	if (!validateSchema.success)
-		return c.json({ msg: "Invalid inputs" }, STATUS_CODES.INVALID_INPUTS);
+		const userPresent = await prisma.users.findFirst({
+			where: { OR: [{ username: body.username }, { email: body.email }] },
+		});
+		if (userPresent)
+			return c.json(
+				{ msg: "Email / Username already exists" },
+				STATUS_CODES.INVALID_INPUTS
+			);
 
-	const userPresent = await prisma.users.findFirst({
-		where: { OR: [{ username: body.username }, { email: body.email }] },
-	});
-	if (userPresent)
-		return c.json(
-			{ msg: "Email / Username already exists" },
-			STATUS_CODES.INVALID_INPUTS
-		);
+		let data;
+		try {
+			data = await prisma.users.create({
+				data: body,
+			});
+		} catch (err) {
+			return c.json(
+				{ msg: "Failed to insert data into Database" },
+				STATUS_CODES.INTERNAL_ERROR
+			);
+		}
 
-	console.log(body);
+		const token = await sign({ id: data.id }, c.env.JWT_SECRET);
 
-	const data = await prisma.users.create({
-		data: body,
-	});
-
-	const token = await sign({ username: body.username }, c.env.JWT_SECRET);
-
-	return c.json({ token });
+		return c.json({
+			msg: "User created successfully",
+			token: token,
+			user: {
+				userId: data.id,
+				username: data.username,
+				email: data.email,
+			},
+		});
+	} catch (err) {
+		return c.json({ msg: "Internal Error" }, STATUS_CODES.INTERNAL_ERROR);
+	}
 };
