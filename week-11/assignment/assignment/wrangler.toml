@@ -1,8 +1,12 @@
 name = "assignment"
 compatibility_date = "2024-07-27"
 
-# [vars]
+[vars]
 # MY_VAR = "my-variable"
+
+DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiODc1MWY5ODEtZTQ3Mi00ZmI2LWFkMjItODY3NDUwNGM3ODk1IiwidGVuYW50X2lkIjoiNjM3OTdhMDk4YjJmOGJhMDI5NGQ4MjU1ZTM3ZTFiYTQ0YjA1MmNiNTlmZTcxNjM5MTMzYjU0ZTUzNmFmNDU5MyIsImludGVybmFsX3NlY3JldCI6IjZjYzg2N2I2LTY3ZDctNDVlYS1iN2Q3LTgzMjRjOGNiZTc4MyJ9.WZFQ_w4pau2CN48QcWTfyXReCv_sXmpGQ_WPeRpMm4k"
+DIRECT_URL = "postgresql://Puneet-NJ:vUDl6Pnzq5cp@ep-shiny-wildflower-53587449.us-east-2.aws.neon.tech/test?sslmode=require"
+JWT_SECRET="JWT_PASSWORD"
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
