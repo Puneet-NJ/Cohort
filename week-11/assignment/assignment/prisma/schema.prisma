@@ -31,4 +31,13 @@ model Blogs {
 
   userId Int 
   user Users @relation(fields: [userId], references: [id]) 
+
+  tags Tags[]
+}
+
+model Tags {
+  id Int @id @default(autoincrement())
+  tag String @unique
+  
+  blog Blogs[]
 }
