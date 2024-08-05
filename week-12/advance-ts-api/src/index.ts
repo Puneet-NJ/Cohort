@@ -11,13 +11,13 @@
 
 // Pick
 // Lets you choose only subset of fields from an existing type
-interface User {
-	id: string;
-	name: string;
-	age: number;
-	email: string;
-	password: string;
-}
+// interface User {
+// 	id: string;
+// 	name: string;
+// 	age: number;
+// 	email: string;
+// 	password: string;
+// }
 
 // interface FieldsToUpdate {
 // 	name: string;
@@ -53,17 +53,59 @@ interface User {
 // You might have seen you can change values of properties of an object(also array)
 // but what if I don't want to? => Readonly, readonly
 
-interface Mobile {
-	name: string;
-	readonly price: number;
-	is5g: boolean;
-}
+// interface Mobile {
+// 	name: string;
+// 	readonly price: number;
+// 	is5g: boolean;
+// }
 
-const iqoo: Readonly<Mobile> = {
-	name: "iqoo7",
-	price: 1000,
-	is5g: true,
-};
+// const iqoo: Readonly<Mobile> = {
+// 	name: "iqoo7",
+// 	price: 1000,
+// 	is5g: true,
+// };
 
 // iqoo.name = "hdjf"
 // iqoo.price = 800
+
+// const obj = {
+// 	name: "some",
+// 	age: 21,
+// };
+
+// Record
+// How to construct object type whose keys are of some sort of data-type
+// or
+// How to construct key-value pairs
+
+type family = "father" | "mother" | "son";
+interface memberInfo {
+	name: string;
+	age: number;
+}
+
+// const familyInfo: Record<family, memberInfo> = {
+// 	father: { name: "Jake", age: 45 },
+// 	mother: { name: "Lily", age: 40 },
+// 	son: { name: "Glen", age: 10 },
+// };
+// console.log(familyInfo);
+
+// Map
+// A better way to deal with such objects is using Map(a JS concept)
+const map = new Map<family, memberInfo>();
+map.set("father", { name: "Jake", age: 45 });
+map.set("son", { name: "Glen", age: 10 });
+
+console.log(map);
+
+// When you want to exclude some type from a type
+type Nature = "dog" | "trees" | "cat" | "plants" | "snake";
+
+type Animal = Exclude<Nature, "trees" | "plants">;
+
+const checkAnimal = (item: Animal) => {
+	console.log(item);
+};
+checkAnimal("dog");
+// checkAnimal("trees"); // ERROR
