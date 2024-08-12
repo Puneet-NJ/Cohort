@@ -9,3 +9,6 @@ const todo_1 = require("../controllers/todo");
 const userAuth_1 = require("../middleware/userAuth");
 exports.todoRouter = (0, express_1.default)();
 exports.todoRouter.post("/addTodo", userAuth_1.userAuth, todo_1.addTodo);
+exports.todoRouter.get("/getTodos", userAuth_1.userAuth, todo_1.getTodos);
+exports.todoRouter.put("/updateTodo/:id", userAuth_1.userAuth, todo_1.updateTodo);
+exports.todoRouter.delete("/deleteTodo/:id", userAuth_1.userAuth, todo_1.deleteTodo);
