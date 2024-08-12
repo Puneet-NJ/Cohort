@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { RESPONSE_MESSAGES, STATUS_CODES } from "../routes";
-import { userSignupSchema } from "../zod/user";
+import { userSigninSchema, userSignupSchema } from "../zod/user";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -46,6 +46,40 @@ export const userSignup = async (req: Request, res: Response) => {
 			token,
 			user: response,
 		});
+	} catch (err) {
+		return res
+			.status(STATUS_CODES.INTRENAL_ERROR)
+			.json({ msg: RESPONSE_MESSAGES.INTRENAL_ERROR });
+	}
+};
+
+export const userSignin = async (req: Request, res: Response) => {
+	try {
+		const prisma = new PrismaClient();
+
+		const body = req.body;
+
+		const validInput = userSigninSchema.safeParse(body);
+		if (!validInput.success)
+			return res
+				.status(STATUS_CODES.INVALID_INPUTS)
+				.json({ msg: RESPONSE_MESSAGES.INVALID_INPUTS });
+
+		const response = await prisma.user.findFirst({
+			where: {
+				username: body.username,
+				password: body.password,
+			},
+		});
+		if (!response)
+			return res
+				.status(STATUS_CODES.INVALID_INPUTS)
+				.json({ msg: "User not found" });
+
+		dotenv.config({ path: "./.env" });
+		const token = jwt.sign({ id: response.id }, process.env.JWT_PASSWORD || "");
+
+		return res.json({ msg: "Sign in successfully", token });
 	} catch (err) {
 		return res
 			.status(STATUS_CODES.INTRENAL_ERROR)
