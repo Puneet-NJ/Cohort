@@ -3,6 +3,7 @@ import { RESPONSE_MESSAGES, STATUS_CODES } from "./index";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { sign } from "hono/jwt";
+import { userSignup, userSignin } from "@puneet_nj/medium-common";
 
 export const userRouter = new Hono<{
 	Bindings: {
@@ -14,6 +15,13 @@ export const userRouter = new Hono<{
 userRouter.post("/signup", async (c) => {
 	try {
 		const body = await c.req.json();
+		const validateInput = userSignup.safeParse(body);
+
+		if (!validateInput.success)
+			return c.json(
+				{ msg: RESPONSE_MESSAGES.INVALID_INPUTS },
+				STATUS_CODES.INVALID_INPUTS
+			);
 
 		const prisma = new PrismaClient({
 			datasourceUrl: c.env.DATABASE_URL,
@@ -41,6 +49,13 @@ userRouter.post("/signup", async (c) => {
 userRouter.post("/signin", async (c) => {
 	try {
 		const body = await c.req.json();
+		const validateInput = userSignin.safeParse(body);
+
+		if (!validateInput.success)
+			return c.json(
+				{ msg: RESPONSE_MESSAGES.INVALID_INPUTS },
+				STATUS_CODES.INVALID_INPUTS
+			);
 
 		const prisma = new PrismaClient({
 			datasourceUrl: c.env.DATABASE_URL,
