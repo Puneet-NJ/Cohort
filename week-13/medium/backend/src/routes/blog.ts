@@ -135,7 +135,7 @@ blogRouter.get("/:id", async (c) => {
 			},
 		});
 
-		return c.json({ msg: "Fetch successful", data: response });
+		return c.json({ msg: "Fetch successfull", data: response });
 	} catch (err) {
 		return c.json(
 			{ msg: "Error while fetching data" },
