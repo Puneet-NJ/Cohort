@@ -1,11 +1,11 @@
-import Auth from "../components/Auth";
 import Quote from "../components/Quote";
+import SignupForm from "../components/SignupForm";
 
 const Signup = () => {
 	return (
 		<div className="h-screen grid grid-cols-1 lg:grid-cols-2">
 			<div>
-				<Auth isSignin={false} />
+				<SignupForm />
 			</div>
 			<div className="hidden lg:block">
 				<Quote />
