@@ -110,7 +110,19 @@ blogRouter.get("/bulk", async (c) => {
 	}).$extends(withAccelerate());
 
 	try {
-		const response = await prisma.post.findMany();
+		const response = await prisma.post.findMany({
+			select: {
+				id: true,
+				title: true,
+				content: true,
+				publishedAt: true,
+				author: {
+					select: {
+						name: true,
+					},
+				},
+			},
+		});
 
 		return c.json({ msg: "Fetch successfull", data: response });
 	} catch (err) {

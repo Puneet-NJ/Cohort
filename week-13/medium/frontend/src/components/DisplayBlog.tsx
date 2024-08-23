@@ -7,13 +7,20 @@ interface Props {
 	content: string;
 }
 
-const DisplayBlog = ({ authorName, publishedDate, title, content }: Props) => {
+const DisplayBlog = ({
+	authorName = "",
+	publishedDate,
+	title,
+	content,
+}: Props) => {
+	const actualDate = new Date(publishedDate);
+
 	return (
 		<div className="flex flex-col gap-6 w-2/5 mx-auto py-8 border-b">
 			<div className="text-sm">
 				<Avatar name={authorName} />
 				<span className="pl-2">{authorName} </span>
-				<span className="text-slate-500">• {publishedDate}</span>
+				<span className="text-slate-500">• {actualDate.toDateString()}</span>
 			</div>
 
 			<div className="flex flex-col gap-1">
