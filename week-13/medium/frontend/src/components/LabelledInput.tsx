@@ -1,18 +1,28 @@
-const LabelledInput = () => {
+import { ChangeEvent } from "react";
+
+interface Props {
+	label: string;
+	placeholder?: string;
+	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+	type?: "password";
+}
+
+const LabelledInput = ({ label, placeholder, onChange, type }: Props) => {
 	return (
-		<div>
+		<div className="my-4">
 			<label
-				htmlFor="first_name"
-				className="block mb-2 text-sm font-medium text-gray-900"
+				htmlFor={label}
+				className="block mb-1 text-sm font-semibold text-gray-900"
 			>
-				First name
+				{label}
 			</label>
 			<input
-				type="text"
-				id="first_name"
+				type={type || "text"}
+				id={label}
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-				placeholder="John"
+				placeholder={placeholder}
 				required
+				onChange={onChange}
 			/>
 		</div>
 	);
