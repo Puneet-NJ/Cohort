@@ -8,7 +8,6 @@ const Blog = () => {
 	const { loading, blog } = useBlog({ id: id || "" });
 
 	if (loading || !blog) return <div>Loading...</div>;
-	console.log(blog);
 	return (
 		<div>
 			<AppBar />
