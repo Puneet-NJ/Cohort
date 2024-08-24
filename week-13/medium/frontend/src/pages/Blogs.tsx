@@ -1,11 +1,24 @@
 import AppBar from "../components/AppBar";
+import BlogsSkeleton from "../components/BlogsSkeleton";
 import DisplayBlog from "../components/DisplayBlog";
 import useBlogs from "../hooks/useBlogs";
 
 const Blogs = () => {
 	const { loading, blogs } = useBlogs();
 
-	if (loading) return <div>Loading...</div>;
+	if (loading)
+		return (
+			<div>
+				<AppBar />
+
+				<BlogsSkeleton />
+				<BlogsSkeleton />
+				<BlogsSkeleton />
+				<BlogsSkeleton />
+				<BlogsSkeleton />
+			</div>
+		);
+
 	return (
 		<div>
 			<AppBar />

@@ -2,12 +2,20 @@ import { useParams } from "react-router-dom";
 import AppBar from "../components/AppBar";
 import useBlog from "../hooks/useBlog";
 import Avatar from "../components/Avatar";
+import BlogSkeleton from "../components/BlogSkeleton";
 
 const Blog = () => {
 	const { id } = useParams();
 	const { loading, blog } = useBlog({ id: id || "" });
 
-	if (loading || !blog) return <div>Loading...</div>;
+	if (loading || !blog)
+		return (
+			<div>
+				<AppBar />
+
+				<BlogSkeleton />
+			</div>
+		);
 	return (
 		<div>
 			<AppBar />
