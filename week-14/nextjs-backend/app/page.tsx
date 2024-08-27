@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
+import prisma from "@/db";
 
 // You could do this, but you see that your nextjs server is sending request
 // from server to server i.e. inhouse
@@ -12,7 +13,7 @@ import { PrismaClient } from "@prisma/client";
 // };
 
 // Instead make the db call here itself
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 const getUserData = async () => {
 	const response = await prisma.user.findFirst({});
