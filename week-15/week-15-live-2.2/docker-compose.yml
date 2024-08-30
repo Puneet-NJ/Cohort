@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  mongodb:
+    image: "mongo"
+    container_name: "test_mongo_container"
+    volumes:
+      - test_volume:/data/db
+      - dummy_volume2:/data/db
+
+  backend:
+    # image: "puneetnj/test"
+    build: .
+    container_name: "test_backend_container"
+    depends_on:
+      - mongodb
+    ports:
+      - 3000:3000
+    environment:
+      MONGO_URL: "mongodb://test_mongo_container:27017"
+
+volumes:
+  test_volume:
+  dummy_volume2:
