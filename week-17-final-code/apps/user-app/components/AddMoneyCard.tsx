@@ -56,7 +56,7 @@ export const AddMoney = () => {
 							const res = await onRampTxns(provider, amount * 100);
 							console.log(res);
 
-							window.location.href = redirectUrl || "";
+							// window.location.href = redirectUrl || "";
 						}}
 					>
 						Add Money
