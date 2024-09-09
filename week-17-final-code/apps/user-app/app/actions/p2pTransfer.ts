@@ -23,6 +23,8 @@ export default async function (phone: string, amount: number) {
 	}
 
 	await prisma.$transaction(async (tx) => {
+		await tx.$queryRaw`SELECT * FROM "Balance" WHERE "userId"=${fromUser} FOR UPDATE`;
+
 		const balance = await tx.balance.findUnique({
 			where: {
 				userId: fromUser,
@@ -50,6 +52,15 @@ export default async function (phone: string, amount: number) {
 			},
 			data: {
 				amount: { increment: amount },
+			},
+		});
+
+		await tx.p2pTransfer.create({
+			data: {
+				amount,
+				timestamp: new Date(),
+				fromUsedId: fromUser,
+				toUserId: toUser,
 			},
 		});
 	});

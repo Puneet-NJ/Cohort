@@ -5,10 +5,17 @@ import { Card } from "@repo/ui/card";
 import { TextInput } from "@repo/ui/textinput";
 import { useState } from "react";
 import p2pTransfer from "../app/actions/p2pTransfer";
+import { P2pTransfers } from "./P2pTransfers";
+import prisma from "@repo/db/client";
 
-export default function () {
+const getP2pTransfers = async () => {
+	return await prisma.p2pTransfer.findMany({});
+};
+
+export default async function () {
 	const [phone, setPhone] = useState("");
 	const [amount, setAmount] = useState("");
+	const transfers = await getP2pTransfers();
 
 	return (
 		<div className="h-screen">
@@ -40,6 +47,9 @@ export default function () {
 							</Button>
 						</div>
 					</Card>
+				</div>
+				<div className="pt-4">
+					<P2pTransfers transfers={transfers} />
 				</div>
 			</div>
 		</div>
